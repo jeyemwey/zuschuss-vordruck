@@ -6,11 +6,30 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 setlocale(LC_TIME, 'de_DE.UTF8');
+
+function getUnixTimestamp(string $input): int {
+    return intval($input) / 1000;
+}
+
 function dtformat(string $input): string {
-    $d = new \Carbon\Carbon(intval($input) / 1000);
+    $d = new \Carbon\Carbon(getUnixTimestamp($input));
     $d->addHours(3);
 
-    $allMonths = ["months-are-one-indexed", "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+    $allMonths = [
+        "months-are-one-indexed",
+        "Januar",
+        "Februar",
+        "März",
+        "April",
+        "Mai",
+        "Juni",
+        "Juli",
+        "August",
+        "September",
+        "Oktober",
+        "November",
+        "Dezember"
+    ];
     return str_replace("%", $allMonths[$d->month], $d->format("d. % Y"));
 }
 
@@ -33,12 +52,13 @@ Route::get('/', function (Request $request) {
     if ($request->has("print")) {
         return Pdf::loadView('tabletemplate', $settings)
             ->setPaper('a4', 'landscape')
-            ->stream();
-//            ->download(
-//                sprintf(
-//                    'Zuschussliste-%s.pdf', 'WiLa Pfadis 2023'
-//                )
-//            );
+            ->download(
+                sprintf(
+                    'Zuschussliste-%d-%s.pdf',
+                    date("Y", getUnixTimestamp($request->get("start"))),
+                    $settings["name"]
+                )
+            );
     }
 
     return view("tabletemplate", $settings);
