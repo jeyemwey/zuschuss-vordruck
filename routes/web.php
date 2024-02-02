@@ -33,7 +33,11 @@ function dtformat(string $input): string {
     return str_replace("%", $allMonths[$d->month], $d->format("d. % Y"));
 }
 
-Route::get('/', function (Request $request) {
+Route::get("/health", function (Request $req) {
+    return "up";
+});
+
+Route::get('/vordruck', function (Request $request) {
     $number_of_attendants = $request->get("num_attendants");
 
     $num_pages = ceil($number_of_attendants / 15);
