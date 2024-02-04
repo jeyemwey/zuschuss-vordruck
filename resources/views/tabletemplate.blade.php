@@ -135,7 +135,7 @@
         <tr>
             <th width="20px">Nr.</th>
             <th width="50px">T / L / H</th>
-            <th width="170px">Name</th>
+            <th width="170px">Nachname</th>
             <th width="170px">Vorname</th>
             <th width="200px">Stra&szlig;e, Hausnummer</th>
             <th width="130px">PLZ, Stadt</th>
