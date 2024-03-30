@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Träwelling Export</title>
+    <title>Zuschüsse für <?= $name ?></title>
     <style>
         @page {
             margin: 4cm 1cm 1cm 1cm;
@@ -120,8 +120,12 @@
             </td>
             <td class="heading">
                 <h1>Teilnahmeliste für Stammesaktionen</h1>
-                <b>Name:</b> <?=$name?>, <b>Ort:</b> <?=$location?>, <b>Datum der Aktion:</b> <?=$start?> &ndash;  <?=$end?><br/>
-                <b>T</b> = Teilnehmer*in; <b>L</b> = Leiter*in; <b>H</b> = Helfer*in
+                <b>Name:</b> <?=$name?>, <b>Ort:</b> <?=$location?>, <b>Datum der Aktion:</b> <?=$start?>
+                @if($start != $end)
+                    &ndash;  <?=$end?>
+                @endif
+                <br/>
+{{--                <b>T</b> = Teilnehmer*in; <b>L</b> = Leiter*in; <b>H</b> = Helfer*in--}}
             </td>
             <td class="page-number-wrapper"><span class="page-number">Seite </span>/<?= $num_pages ?></td>
         </tr>
@@ -134,12 +138,13 @@
         <thead>
         <tr>
             <th width="20px">Nr.</th>
-            <th width="50px">T / L / H</th>
+{{--            <th width="50px">T / L / H</th>--}}
             <th width="170px">Nachname</th>
             <th width="170px">Vorname</th>
             <th width="200px">Stra&szlig;e, Hausnummer</th>
             <th width="130px">PLZ, Stadt</th>
             <th width="120px">Geburtsdatum</th>
+            <th width="50px">Alter</th>
             <th>Unterschrift</th>
         </tr>
         </thead>

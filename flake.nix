@@ -19,7 +19,7 @@
           pname = "zuschuss-vordruck";
           version = "1.0.0";
 
-          vendorHash = "sha256-MHE7FUHRSz/WckvW3MiSR/CcZrr99jebEuPLXSTunmo=";
+          vendorHash = "sha256-feb1N1arY5famy9GYI09TF4ynH1b0nqtM7xCncA0CVI=";
         };
       });
 }
