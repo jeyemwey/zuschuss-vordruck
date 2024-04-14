@@ -20,6 +20,9 @@
           version = "1.0.0";
 
           vendorHash = "sha256-feb1N1arY5famy9GYI09TF4ynH1b0nqtM7xCncA0CVI=";
+          postInstall = ''
+            composer dump-autoload --classmap-authoritative --no-dev
+          '';
         };
       });
 }
