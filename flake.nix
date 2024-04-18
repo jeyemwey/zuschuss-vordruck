@@ -10,7 +10,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
         lib = nixpkgs.lib;
       in {
-        packages.default = pkgs.php.buildComposerProject {
+        packages.default = pkgs.php.buildComposerProject rec {
           src = builtins.filterSource (path: type:
             !(type == "directory" && (baseNameOf path == "vendor"
               || baseNameOf path == ".idea" || baseNameOf path == "result")))
@@ -21,7 +21,16 @@
 
           vendorHash = "sha256-feb1N1arY5famy9GYI09TF4ynH1b0nqtM7xCncA0CVI=";
           postInstall = ''
-            composer dump-autoload --classmap-authoritative --no-dev
+            mv "$out/share/php/${pname}"/* $out
+            rm -R $out/bootstrap/cache
+            # Move static contents for the NixOS module to pick it up, if needed.
+            mv $out/bootstrap $out/bootstrap-static
+            mv $out/storage $out/storage-static
+            ln -s /var/lib/${pname}/.env $out/.env
+            ln -s /var/lib/${pname}/storage $out/
+            ln -s /var/lib/${pname}/storage/app/public $out/public/storage
+            ln -s /var/lib/${pname}-bootstrap $out/bootstrap
+            chmod +x $out/artisan
           '';
         };
       });
