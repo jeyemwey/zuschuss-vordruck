@@ -21,16 +21,15 @@
 
           vendorHash = "sha256-feb1N1arY5famy9GYI09TF4ynH1b0nqtM7xCncA0CVI=";
           postInstall = ''
-            mv "$out/share/php/${pname}"/* $out
-            rm -R $out/bootstrap/cache
+            rm -R $out/share/php/${pname}/bootstrap/cache
             # Move static contents for the NixOS module to pick it up, if needed.
-            mv $out/bootstrap $out/bootstrap-static
-            mv $out/storage $out/storage-static
-            ln -s /var/lib/${pname}/.env $out/.env
-            ln -s /var/lib/${pname}/storage $out/
-            ln -s /var/lib/${pname}/storage/app/public $out/public/storage
-            ln -s /var/lib/${pname}-bootstrap $out/bootstrap
-            chmod +x $out/artisan
+            mv $out/share/php/${pname}/bootstrap $out/share/php/${pname}/bootstrap-static
+            mv $out/share/php/${pname}/storage $out/share/php/${pname}/storage-static
+            ln -s /var/lib/${pname}/.env $out/share/php/${pname}/.env
+            ln -s /var/lib/${pname}/storage $out/share/php/${pname}/
+            ln -s /var/lib/${pname}/storage/app/public $out/share/php/${pname}/public/storage
+            # ln -s /var/lib/${pname}-bootstrap $out/share/php/${pname}/bootstrap
+            chmod +x $out/share/php/${pname}/artisan
           '';
         };
       });
