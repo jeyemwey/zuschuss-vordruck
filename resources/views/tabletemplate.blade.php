@@ -120,7 +120,7 @@
             </td>
             <td class="heading">
                 <h1>Teilnahmeliste für Stammesaktionen</h1>
-                <b>Name:</b> <?= $name ?>, <b>Ort:</b> <?= $location ?>, <b>Datum der Aktion:</b> <?= $start ?>
+                <b>Name der Veranstaltung:</b> <?= $name ?>, <b>Ort:</b> <?= $location ?>, <b>Datum der Aktion:</b> <?= $start ?>
                 @if($start != $end)
                     &ndash;  <?= $end ?>
                 @endif

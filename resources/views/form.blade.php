@@ -67,7 +67,7 @@
 
     <form id="vordruck-form" action="/vordruck" method="get" target="_blank">
         <label>
-            Name
+            Name der Veranstaltung
             <input type="text" name="name" required>
         </label>
 
@@ -95,7 +95,6 @@
         <input type="hidden" name="end">
 
         <div class="actions">
-            <button type="submit" class="primary">Anzeigen</button>
             <button type="submit" name="print" value="1">Als PDF herunterladen</button>
         </div>
     </form>
