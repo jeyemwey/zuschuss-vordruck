@@ -1,7 +1,7 @@
 {
   description = "A flake for building Hello World";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
   outputs = { self, nixpkgs, flake-utils }:
@@ -32,5 +32,25 @@
             chmod +x $out/share/php/${pname}/artisan
           '';
         };
+
+        devShells.default = with pkgs;
+          mkShell {
+            packages = [
+              frankenphp
+              (pkgs.php.buildEnv {
+                extensions = ({ enabled, all }: enabled ++ (with all; [
+                  xdebug
+                ]));
+                extraConfig = ''
+                  xdebug.mode=debug
+                '';
+              })
+              php84Packages.composer
+            ];
+
+            shellHook = ''
+              echo "Welcome to zuschuss-vordruck."
+            '';
+          };
       });
 }

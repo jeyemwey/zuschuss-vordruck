@@ -3,7 +3,7 @@ COPY . /usr/src/www
 WORKDIR /usr/src/www
 RUN composer install --ignore-platform-reqs --no-interaction --no-progress --no-suggest --optimize-autoloader
 
-FROM php:8.3.2-apache
+FROM php:8.4-apache
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
 RUN apt update && \
@@ -14,5 +14,7 @@ RUN apt update && \
     a2enmod http2 && \
     sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
     sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+EXPOSE 80
 
 COPY --from=ComposerBuildContainer --chown=www-data:www-data /usr/src/www /var/www/html
