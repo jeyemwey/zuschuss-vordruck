@@ -37,6 +37,10 @@ Route::get("/health", function (Request $req) {
     return "up";
 });
 
+Route::get('/', function () {
+    return view('form');
+});
+
 Route::get('/vordruck', function (Request $request) {
     $number_of_attendants = $request->get("num_attendants");
 
